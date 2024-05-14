@@ -1,17 +1,17 @@
 [gd_scene load_steps=9 format=3 uid="uid://d0ehwe45eln1j"]
 
 [ext_resource type="Script" path="res://scripts/shark.gd" id="1_s2dwm"]
-[ext_resource type="Texture2D" uid="uid://bv23cx3la7jyy" path="res://assets/npcs/Sharko.png" id="2_mnedt"]
+[ext_resource type="Texture2D" uid="uid://ct8pc1ljbffqy" path="res://assets/npcs/Sharko.png" id="2_mnedt"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_m6hky"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_55reo"]
 atlas = ExtResource("2_mnedt")
 region = Rect2(0, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1i67h"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6co5"]
 atlas = ExtResource("2_mnedt")
 region = Rect2(24, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vy486"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_t1uft"]
 atlas = ExtResource("2_mnedt")
 region = Rect2(48, 0, 24, 24)
 
@@ -19,13 +19,13 @@ region = Rect2(48, 0, 24, 24)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_m6hky")
+"texture": SubResource("AtlasTexture_55reo")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1i67h")
+"texture": SubResource("AtlasTexture_t6co5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vy486")
+"texture": SubResource("AtlasTexture_t1uft")
 }],
 "loop": true,
 "name": &"idle",
@@ -44,12 +44,14 @@ script = ExtResource("1_s2dwm")
 sprite_frames = SubResource("SpriteFrames_rpiro")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.407115
+frame_progress = 0.117039
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_7ceim")
 
 [node name="ChatZone" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="ChatZone"]
 shape = SubResource("CircleShape2D_3sjgu")

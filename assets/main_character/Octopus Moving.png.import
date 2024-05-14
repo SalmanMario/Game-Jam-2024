@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ct8pc1ljbffqy"
-path="res://.godot/imported/Sharko.png-50fd7a79da4358f8dd0f9891e367bebd.ctex"
+uid="uid://cxg5ai1lku2oi"
+path="res://.godot/imported/Octopus Moving.png-926dbe11f06f079a1bcfe12e95498721.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/npcs/Sharko.png"
-dest_files=["res://.godot/imported/Sharko.png-50fd7a79da4358f8dd0f9891e367bebd.ctex"]
+source_file="res://assets/main_character/Octopus Moving.png"
+dest_files=["res://.godot/imported/Octopus Moving.png-926dbe11f06f079a1bcfe12e95498721.ctex"]
 
 [params]
 

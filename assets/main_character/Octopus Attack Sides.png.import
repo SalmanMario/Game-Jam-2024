@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cuuiagqel8dyv"
-path="res://.godot/imported/Moving_Animation.png-cf1ce8d70f92f170cf809bc6c5a229f0.ctex"
+uid="uid://du16yyhnrb8g"
+path="res://.godot/imported/Octopus Attack Sides.png-7fed162baa3dfb69d0e8798c18719c6c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/main_character/Moving_Animation.png"
-dest_files=["res://.godot/imported/Moving_Animation.png-cf1ce8d70f92f170cf809bc6c5a229f0.ctex"]
+source_file="res://assets/main_character/Octopus Attack Sides.png"
+dest_files=["res://.godot/imported/Octopus Attack Sides.png-7fed162baa3dfb69d0e8798c18719c6c.ctex"]
 
 [params]
 
