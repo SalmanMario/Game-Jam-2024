@@ -1,0 +1,69 @@
+[gd_resource type="Resource" script_class="DialogicStyle" load_steps=17 format=3 uid="uid://cypkavtn3uvlw"]
+
+[ext_resource type="PackedScene" uid="uid://c1k5m0w3r40xf" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_FullBackground/full_background_layer.tscn" id="1_lcbqu"]
+[ext_resource type="Script" path="res://addons/dialogic/Resources/dialogic_style_layer.gd" id="2_gl3ka"]
+[ext_resource type="PackedScene" uid="uid://d150qsukdw3fs" path="res://dialog_system/TextboxWithPortrait/custom_textbox_with_speaker_portrait.tscn" id="3_gnwk4"]
+[ext_resource type="PackedScene" uid="uid://cn674foxwedqu" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Input/full_advance_input_layer.tscn" id="4_iustn"]
+[ext_resource type="PackedScene" uid="uid://dsbwnp5hegnu3" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Glossary/glossary_popup_layer.tscn" id="5_rmco3"]
+[ext_resource type="PackedScene" uid="uid://dhk6j6eb6e3q" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Choices/vn_choice_layer.tscn" id="6_qdl8k"]
+[ext_resource type="PackedScene" uid="uid://cvgf4c6gg0tsy" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_TextInput/text_input_layer.tscn" id="7_ei4ts"]
+[ext_resource type="PackedScene" uid="uid://lx24i8fl6uo" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_History/history_layer.tscn" id="8_j8a3c"]
+[ext_resource type="Script" path="res://addons/dialogic/Resources/dialogic_style.gd" id="9_po2b4"]
+
+[sub_resource type="Resource" id="Resource_omkfy"]
+script = ExtResource("2_gl3ka")
+scene = ExtResource("1_lcbqu")
+overrides = {}
+
+[sub_resource type="Resource" id="Resource_aoqki"]
+script = ExtResource("2_gl3ka")
+scene = ExtResource("3_gnwk4")
+overrides = {
+"box_distance": "50.0",
+"box_modulate_custom_color": "Color(0.15274, 0.221977, 0.429688, 1)",
+"box_modulate_global_color": "false",
+"box_panel": "\"default_stylebox.tres\"",
+"box_size": "Vector2(900, 200)",
+"custom_normal_font": "\"res://assets/fonts/PixelOperator8.ttf\"",
+"name_label_custom_size": "24.0",
+"name_label_customfont": "\"res://assets/fonts/PixelOperator8-Bold.ttf\"",
+"name_label_use_global_font": "false",
+"name_label_use_global_size": "false",
+"text_custom_size": "16.0",
+"text_use_global_size": "false",
+"use_global_fonts": "false"
+}
+
+[sub_resource type="Resource" id="Resource_3ilpe"]
+script = ExtResource("2_gl3ka")
+scene = ExtResource("4_iustn")
+overrides = {}
+
+[sub_resource type="Resource" id="Resource_a16np"]
+script = ExtResource("2_gl3ka")
+scene = ExtResource("5_rmco3")
+overrides = {}
+
+[sub_resource type="Resource" id="Resource_qdwas"]
+script = ExtResource("2_gl3ka")
+scene = ExtResource("6_qdl8k")
+overrides = {}
+
+[sub_resource type="Resource" id="Resource_r0vbi"]
+script = ExtResource("2_gl3ka")
+scene = ExtResource("7_ei4ts")
+overrides = {}
+
+[sub_resource type="Resource" id="Resource_rvxhr"]
+script = ExtResource("2_gl3ka")
+scene = ExtResource("8_j8a3c")
+overrides = {}
+
+[resource]
+script = ExtResource("9_po2b4")
+name = "custom_dialogue"
+base_overrides = {
+"global_bg_color": "Color(0.127655, 0.198124, 0.347656, 0.901961)"
+}
+layers = Array[ExtResource("2_gl3ka")]([SubResource("Resource_omkfy"), SubResource("Resource_aoqki"), SubResource("Resource_3ilpe"), SubResource("Resource_a16np"), SubResource("Resource_qdwas"), SubResource("Resource_r0vbi"), SubResource("Resource_rvxhr")])
+metadata/_latest_layer = 1
