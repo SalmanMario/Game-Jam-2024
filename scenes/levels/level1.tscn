@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://lfewx1ooim65"]
+[gd_scene load_steps=7 format=3 uid="uid://lfewx1ooim65"]
 
 [ext_resource type="Texture2D" uid="uid://cuq68724p2y0j" path="res://assets/tilemap/Floor_tilemap.png" id="1_8xvpx"]
 [ext_resource type="PackedScene" uid="uid://blih7kpppc73i" path="res://scenes/player.tscn" id="1_jxhej"]
 [ext_resource type="PackedScene" uid="uid://d0ehwe45eln1j" path="res://scenes/shark.tscn" id="3_cles7"]
+[ext_resource type="PackedScene" uid="uid://c7spbub5v5bso" path="res://scenes/dummy.tscn" id="4_jtlc5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7gsdn"]
 texture = ExtResource("1_8xvpx")
@@ -201,3 +202,5 @@ zoom = Vector2(4, 4)
 
 [node name="Shark" parent="." instance=ExtResource("3_cles7")]
 position = Vector2(-42, -101)
+
+[node name="Dummy" parent="." instance=ExtResource("4_jtlc5")]

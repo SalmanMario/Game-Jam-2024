@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://be2an5fg45yeb"]
+
+[ext_resource type="Script" path="res://scripts/bullet.gd" id="1_n66s6"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wwu4n"]
+load_path = "res://.godot/imported/projectile.png-5936583a84c7aa937ac732963c830bc1.ctex"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hlnmg"]
+radius = 5.0
+
+[node name="Bullet" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_n66s6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("CompressedTexture2D_wwu4n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_hlnmg")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -33,11 +33,14 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7ceim"]
+radius = 9.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3sjgu"]
 radius = 20.0
 
 [node name="Shark" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_s2dwm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -47,11 +50,12 @@ autoplay = "idle"
 frame_progress = 0.117039
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
+light_mask = 4
 shape = SubResource("CircleShape2D_7ceim")
 
 [node name="ChatZone" type="Area2D" parent="."]
-visible = false
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="ChatZone"]
 shape = SubResource("CircleShape2D_3sjgu")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://blih7kpppc73i"]
+[gd_scene load_steps=18 format=3 uid="uid://blih7kpppc73i"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_mptv2"]
 [ext_resource type="Texture2D" uid="uid://bst2esak6d3p5" path="res://assets/main_character/Octopus Idle.png" id="2_tv4b8"]
@@ -95,6 +95,9 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1extt"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_blm1f"]
 radius = 9.0
 
 [node name="Player" type="CharacterBody2D"]
@@ -105,5 +108,18 @@ sprite_frames = SubResource("SpriteFrames_g8hvs")
 animation = &"moving_animation"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1)
+position = Vector2(1, -1)
 shape = SubResource("CircleShape2D_1extt")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="HitboxBullet" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxBullet"]
+position = Vector2(1, -1)
+shape = SubResource("CircleShape2D_blm1f")
+debug_color = Color(0.95812, 0, 0.528873, 0.42)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

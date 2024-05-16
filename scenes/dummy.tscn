@@ -1,0 +1,81 @@
+[gd_scene load_steps=11 format=3 uid="uid://c7spbub5v5bso"]
+
+[ext_resource type="Script" path="res://scripts/dummy.gd" id="1_2joxk"]
+[ext_resource type="Texture2D" uid="uid://bght3lx5ejqn3" path="res://assets/enemy/JaggedMaw Idle.png" id="2_iwcgu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lcio"]
+atlas = ExtResource("2_iwcgu")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8vyhr"]
+atlas = ExtResource("2_iwcgu")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8av6q"]
+atlas = ExtResource("2_iwcgu")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wyqn"]
+atlas = ExtResource("2_iwcgu")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0eko2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0lcio")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8vyhr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8av6q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wyqn")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_53wsn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_55ybj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_75jp4"]
+radius = 58.0
+
+[node name="Dummy" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_2joxk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0eko2")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_53wsn")
+
+[node name="EnemyHitbox" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitbox"]
+shape = SubResource("CircleShape2D_55ybj")
+debug_color = Color(0.914857, 0.20507, 0.519441, 0.42)
+
+[node name="DetectionPlayer" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionPlayer"]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_75jp4")
+debug_color = Color(0.470059, 0.500405, 0.827428, 0.42)
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="body_entered" from="EnemyHitbox" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="DetectionPlayer" to="." method="_on_detection_player_body_entered"]
+[connection signal="body_exited" from="DetectionPlayer" to="." method="_on_detection_player_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
