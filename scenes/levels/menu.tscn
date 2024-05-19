@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhq75aku4gu6n"]
+
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1_4pg3a"]
+[ext_resource type="FontFile" uid="uid://b0wp7n83o51m2" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_3qq8t"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4pg3a")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 1924.0
+offset_bottom = 1081.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Play" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("2_3qq8t")
+theme_override_font_sizes/font_size = 64
+text = "Play"
+
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_3qq8t")
+theme_override_font_sizes/font_size = 64
+text = "Quit"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://lfewx1ooim65"]
+[gd_scene load_steps=10 format=3 uid="uid://lfewx1ooim65"]
 
+[ext_resource type="Script" path="res://scripts/base_scene.gd" id="1_6cjs0"]
 [ext_resource type="Texture2D" uid="uid://cuq68724p2y0j" path="res://assets/tilemap/Floor_tilemap.png" id="1_8xvpx"]
 [ext_resource type="PackedScene" uid="uid://blih7kpppc73i" path="res://scenes/player.tscn" id="1_jxhej"]
-[ext_resource type="Script" path="res://scripts/level1.gd" id="1_yycnp"]
 [ext_resource type="PackedScene" uid="uid://d0ehwe45eln1j" path="res://scenes/shark.tscn" id="3_cles7"]
-[ext_resource type="PackedScene" uid="uid://0nntsd0d6u4d" path="res://scenes/load_next_level.tscn" id="5_ds7yr"]
+[ext_resource type="PackedScene" uid="uid://cnccs28o13t6n" path="res://scenes/scene_trigger.tscn" id="4_6fdqk"]
+[ext_resource type="Script" path="res://scripts/scene_trigger.gd" id="6_hs3ow"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7gsdn"]
 texture = ExtResource("1_8xvpx")
@@ -179,11 +180,11 @@ texture = ExtResource("1_8xvpx")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_7gsdn")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_78d8j"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w6u2h"]
 
 [node name="Level1" type="Node2D"]
 position = Vector2(0, 1)
-script = ExtResource("1_yycnp")
+script = ExtResource("1_6cjs0")
 
 [node name="TileMap" type="TileMap" parent="."]
 rotation = 0.000228755
@@ -200,21 +201,22 @@ layer_2/tile_data = PackedInt32Array(-65521, 786432, 2, 15, 786432, 3, 65551, 78
 
 [node name="Player" parent="." instance=ExtResource("1_jxhej")]
 position = Vector2(-127, 39)
-collision_layer = 13
-collision_mask = 5
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(4, 4)
 
 [node name="Shark" parent="." instance=ExtResource("3_cles7")]
-position = Vector2(-44, -65)
-collision_layer = 1
-collision_mask = 1
+position = Vector2(-42, -101)
 
-[node name="load_next_level" parent="." instance=ExtResource("5_ds7yr")]
+[node name="EntraceMarkers" type="Node2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="load_next_level"]
-position = Vector2(8, -133)
-shape = SubResource("RectangleShape2D_78d8j")
+[node name="Level2" type="Marker2D" parent="EntraceMarkers"]
+position = Vector2(7, -115)
 
-[connection signal="body_entered" from="load_next_level" to="." method="_on_load_next_level_body_entered"]
+[node name="SceneTrigger" parent="." instance=ExtResource("4_6fdqk")]
+script = ExtResource("6_hs3ow")
+connected_scene = "level2"
+
+[node name="level2" type="CollisionShape2D" parent="SceneTrigger"]
+position = Vector2(7, -135)
+shape = SubResource("RectangleShape2D_w6u2h")

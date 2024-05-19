@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://lfewx1ooim65"]
+[gd_scene load_steps=10 format=3 uid="uid://lfewx1ooim65"]
 
 [ext_resource type="Texture2D" uid="uid://cuq68724p2y0j" path="res://assets/tilemap/Floor_tilemap.png" id="1_8xvpx"]
 [ext_resource type="PackedScene" uid="uid://blih7kpppc73i" path="res://scenes/player.tscn" id="1_jxhej"]
@@ -179,6 +179,83 @@ texture = ExtResource("1_8xvpx")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_7gsdn")
 
+[sub_resource type="GDScript" id="GDScript_vitga"]
+script/source = "extends CharacterBody2D
+
+const SPEED = 150
+const ACCEL = 1500
+const FRICTION = 600
+var health = 3
+
+var bullet_scene = preload(\"res://scenes/bullet.tscn\")
+
+var input = Vector2.ZERO
+@onready var anim_player = $AnimatedSprite2D
+
+func _physics_process(delta):
+	player_movement(delta)
+	
+func get_input():
+	input.x = int(Input.is_action_pressed(\"move_right\")) - int(Input.is_action_pressed(\"move_left\"))
+	input.y = int(Input.is_action_pressed(\"move_down\")) - int(Input.is_action_pressed(\"move_up\"))
+	if Input.is_action_just_pressed(\"shoot\"):
+		shoot()
+	return input.normalized()
+	
+func player_movement(delta):
+	input = get_input()
+	
+	if input == Vector2.ZERO:
+		if velocity.length() > (FRICTION * delta):
+			velocity -= velocity.normalized() * (FRICTION * delta)
+		else:
+			velocity = Vector2.ZERO
+			anim_player.play(\"idle\")
+	else:
+		velocity += (input * ACCEL * delta)
+		velocity = velocity.limit_length(SPEED)
+		update_animation(input)
+		
+	move_and_slide()
+
+func update_animation(input):
+	if abs(input.x) > abs(input.y):
+		if input.x > 0:
+			anim_player.flip_h = false
+			Global.bullet_direction = Vector2.RIGHT
+		else:
+			anim_player.flip_h = true
+			Global.bullet_direction = Vector2.LEFT
+		anim_player.play(\"moving_animation\")
+	else:
+		if input.y > 0:
+			Global.bullet_direction = Vector2.DOWN
+		else:
+			Global.bullet_direction = Vector2.UP
+			
+func shoot():
+	var bullet = bullet_scene.instantiate()
+	bullet.position = position
+	get_parent().add_child(bullet)
+	
+func player_take_damage():
+	health -= 1
+	
+	if health == 0:
+		queue_free()
+		respawn()
+
+#func _on_timer_timeout():
+	#shoot()
+	
+func player():
+	pass
+	
+func respawn():
+	get_tree().reload_current_scene()
+
+"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_78d8j"]
 
 [node name="Level1" type="Node2D"]
@@ -202,6 +279,7 @@ layer_2/tile_data = PackedInt32Array(-65521, 786432, 2, 15, 786432, 3, 65551, 78
 position = Vector2(-127, 39)
 collision_layer = 13
 collision_mask = 5
+script = SubResource("GDScript_vitga")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(4, 4)

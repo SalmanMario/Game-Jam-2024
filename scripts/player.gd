@@ -1,14 +1,17 @@
 extends CharacterBody2D
+class_name Player
 
 const SPEED = 150
 const ACCEL = 1500
 const FRICTION = 600
-var health = 3
+var health = 5
 
 var bullet_scene = preload("res://scenes/bullet.tscn")
+@onready var shoot_sound_effect = $ShootSoundEffect
 
 var input = Vector2.ZERO
 @onready var anim_player = $AnimatedSprite2D
+@onready var animation_player = $AnimationPlayer
 
 func _physics_process(delta):
 	player_movement(delta)
@@ -55,15 +58,22 @@ func shoot():
 	var bullet = bullet_scene.instantiate()
 	bullet.position = position
 	get_parent().add_child(bullet)
+	shoot_sound_effect.play()
 	
 func player_take_damage():
 	health -= 1
+	animation_player.play("hit_effect")
 	
 	if health == 0:
 		queue_free()
+		respawn()
 
 #func _on_timer_timeout():
 	#shoot()
-
+	
 func player():
 	pass
+	
+func respawn():
+	get_tree().reload_current_scene()
+

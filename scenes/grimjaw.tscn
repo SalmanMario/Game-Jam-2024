@@ -1,0 +1,144 @@
+[gd_scene load_steps=16 format=3 uid="uid://dx2s7j2fub6fb"]
+
+[ext_resource type="Script" path="res://scripts/grimjaw.gd" id="1_85gd7"]
+[ext_resource type="Texture2D" uid="uid://ttb0g6blkk5d" path="res://assets/boss/tickle_monster.png" id="2_n43jq"]
+[ext_resource type="Shader" uid="uid://btbabo4hq21te" path="res://assets/shader_hit/hit_flash.tres" id="2_yl7t0"]
+[ext_resource type="AudioStream" uid="uid://lu8ya1fm1v50" path="res://assets/sounds/shoot.mp3" id="4_ti0dc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pmk26"]
+resource_local_to_scene = true
+shader = ExtResource("2_yl7t0")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifidy"]
+atlas = ExtResource("2_n43jq")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_umddr"]
+atlas = ExtResource("2_n43jq")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5ick"]
+atlas = ExtResource("2_n43jq")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4csf"]
+atlas = ExtResource("2_n43jq")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r42b0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ifidy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_umddr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e5ick")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4csf")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g7f1a"]
+size = Vector2(61, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f5agd"]
+size = Vector2(66, 60)
+
+[sub_resource type="Animation" id="Animation_wpsa3"]
+resource_name = "hit_effect"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_idy4y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qs22v"]
+_data = {
+"RESET": SubResource("Animation_idy4y"),
+"hit_effect": SubResource("Animation_wpsa3")
+}
+
+[node name="Grimjaw" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_85gd7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_pmk26")
+position = Vector2(-1, 0)
+scale = Vector2(1.15, 1.15)
+sprite_frames = SubResource("SpriteFrames_r42b0")
+animation = &"idle"
+autoplay = "idle"
+frame = 2
+frame_progress = 0.339391
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_g7f1a")
+debug_color = Color(0.961248, 0, 0.511433, 0.42)
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_f5agd")
+
+[node name="RayCastUp" type="RayCast2D" parent="."]
+position = Vector2(0, 29)
+target_position = Vector2(0, -10)
+
+[node name="RayCastDown" type="RayCast2D" parent="."]
+position = Vector2(0, -28)
+target_position = Vector2(0, 10)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qs22v")
+}
+
+[node name="shoot_sound_effect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ti0dc")
+pitch_scale = 2.0
+bus = &"Sound Effects"
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

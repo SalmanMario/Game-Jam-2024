@@ -1,3 +1,9 @@
 join sharkCharacter 0
-sharkCharacter (default): Hello
-sharkCharacter (default): What's that?
+sharkCharacter (default): You must be the Sheriff, right?
+octaviusCharacter (default): Yes! My name is Octavius, the sheriff of the oceans.
+sharkCharacter (default): Thank goodness! Someone has arrived. The JaggedMaws invaded our ocean. Please, we need your help.
+octaviusCharacter (default): JaggedMaws? I thought they were just a myth.
+sharkCharacter (default): They’re real, Sheriff, and they’re tearing our home apart. Their leader, Grimjaw, is ruthless. They slaughtered everything in their way!
+octaviusCharacter (default): Don’t worry. I will help you. But first, I need to understand more about them. Where do they come from?
+sharkCharacter (default): They emerged from the Abyssal Trench, a dark and dangerous place where no one dares to go.
+sharkCharacter: Please! We have no time. Go and deal with these monsters immediately.

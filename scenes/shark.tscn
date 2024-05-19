@@ -33,14 +33,14 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7ceim"]
-radius = 9.0
+radius = 13.0384
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3sjgu"]
-radius = 20.0
+radius = 27.0
 
 [node name="Shark" type="StaticBody2D"]
-collision_layer = 4
-collision_mask = 4
+collision_layer = 5
+collision_mask = 5
 script = ExtResource("1_s2dwm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -58,6 +58,8 @@ collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="ChatZone"]
+light_mask = 4
+visibility_layer = 4
 shape = SubResource("CircleShape2D_3sjgu")
 debug_color = Color(1, 0.267977, 0.530556, 0.42)
 

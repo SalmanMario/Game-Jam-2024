@@ -1,11 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://bkekhd3ybj8my"]
+[gd_scene load_steps=8 format=3 uid="uid://bkekhd3ybj8my"]
 
-[ext_resource type="Script" path="res://scripts/level2.gd" id="1_e8rtx"]
 [ext_resource type="Texture2D" uid="uid://cuq68724p2y0j" path="res://assets/tilemap/Floor_tilemap.png" id="1_ep5iv"]
 [ext_resource type="PackedScene" uid="uid://c7spbub5v5bso" path="res://scenes/dummy.tscn" id="4_6pw8h"]
 [ext_resource type="PackedScene" uid="uid://blih7kpppc73i" path="res://scenes/player.tscn" id="5_8cbuc"]
 [ext_resource type="PackedScene" uid="uid://cgqels5g20uon" path="res://scenes/detection_player.tscn" id="5_tb7o3"]
-[ext_resource type="PackedScene" uid="uid://0nntsd0d6u4d" path="res://scenes/load_next_level.tscn" id="6_uqyci"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7gsdn"]
 texture = ExtResource("1_ep5iv")
@@ -180,24 +178,11 @@ texture = ExtResource("1_ep5iv")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_7gsdn")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_a3x8v"]
-radius = 100.688
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_lm1hd"]
-radius = 166.111
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_st8w0"]
-radius = 143.59
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_sd6vj"]
-radius = 182.858
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6cjqf"]
-size = Vector2(20, 22)
+[sub_resource type="CircleShape2D" id="CircleShape2D_cqjfd"]
+radius = 101.98
 
 [node name="Level2" type="Node2D"]
 position = Vector2(0, 1)
-script = ExtResource("1_e8rtx")
 
 [node name="TileMap" type="TileMap" parent="."]
 rotation = 0.000228755
@@ -213,56 +198,11 @@ layer_2/z_index = 2
 layer_2/tile_data = PackedInt32Array(-65521, 786432, 0, 15, 786432, 1, 65551, 786432, 2, 131087, 786432, 3, 196623, 786432, 0, 262159, 786432, 1, 327695, 786432, 2, 393231, 786432, 3, 458767, 786432, 2, -131057, 786432, 1, -458737, 786432, 1, -393201, 786432, 2, -327665, 786432, 3, -524303, 589824, 0, -524302, 655360, 0, -524301, 720896, 0, -524300, 589824, 0, -524299, 655360, 0, -524298, 720896, 0, -524297, 589824, 0, -524296, 655360, 0, -524295, 720896, 0, -524294, 589824, 0, -524293, 655360, 0, -524292, 720896, 0, -524291, 589824, 0, -524290, 589824, 0, -589822, 720896, 0, -589821, 589824, 0, -589820, 655360, 0, -589819, 720896, 0, -589818, 589824, 0, -589817, 655360, 0, -589816, 720896, 0, -589815, 589824, 0, -589814, 655360, 0, -589813, 720896, 0, -589812, 589824, 0, -589811, 655360, 0, -589810, 720896, 0, -524304, 524288, 0, -458768, 524288, 1, -393232, 524288, 2, -327696, 524288, 3, -262160, 524288, 2, -196624, 524288, 0, -131088, 524288, 1, -65552, 524288, 2, -16, 524288, 3, 65520, 524288, 3, 131056, 524288, 0, 196592, 524288, 1, 262128, 524288, 2, 327664, 524288, 0, 393200, 524288, 1, 458736, 524288, 2, 524272, 524288, 3, 589808, 524288, 4, 589809, 655360, 4, 589810, 720896, 4, 589811, 589824, 4, 589812, 655360, 4, 589813, 720896, 4, 589814, 589824, 4, 589815, 655360, 4, 589816, 720896, 4, 589817, 589824, 4, 589818, 655360, 4, 589819, 720896, 4, 589820, 589824, 4, 589821, 655360, 4, 589822, 720896, 4, 524289, 720896, 4, 524290, 589824, 4, 524291, 655360, 4, 524292, 720896, 4, 524293, 589824, 4, 524294, 655360, 4, 524295, 720896, 4, 524296, 589824, 4, 524297, 655360, 4, 524298, 720896, 4, 524299, 589824, 4, 524300, 655360, 4, 524301, 720896, 4, 524302, 720896, 4, -589809, 786432, 1, -524273, 786432, 0, 524303, 786432, 4, -524289, 589824, 0, -589824, 655360, 0, -589823, 720896, 0, -196593, 393216, 3, -262129, 589824, 4, -262128, 589824, 4, -196592, 458752, 3, 589823, 655360, 4, 524288, 720896, 4)
 
 [node name="Player" parent="." instance=ExtResource("5_8cbuc")]
-position = Vector2(-2, 115)
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(4, 4)
+position = Vector2(-6, 118)
 
 [node name="Dummy" parent="." instance=ExtResource("4_6pw8h")]
-position = Vector2(86, -75)
 
-[node name="DetectionPlayer" parent="Dummy" instance=ExtResource("5_tb7o3")]
+[node name="DetectionPlayer2" parent="Dummy" instance=ExtResource("5_tb7o3")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Dummy/DetectionPlayer"]
-shape = SubResource("CircleShape2D_a3x8v")
-
-[node name="Dummy2" parent="." instance=ExtResource("4_6pw8h")]
-position = Vector2(-169, -96)
-
-[node name="DetectionPlayer" parent="Dummy2" instance=ExtResource("5_tb7o3")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Dummy2/DetectionPlayer"]
-shape = SubResource("CircleShape2D_lm1hd")
-
-[node name="Dummy3" parent="." instance=ExtResource("4_6pw8h")]
-position = Vector2(-181, 80)
-
-[node name="DetectionPlayer" parent="Dummy3" instance=ExtResource("5_tb7o3")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Dummy3/DetectionPlayer"]
-shape = SubResource("CircleShape2D_st8w0")
-
-[node name="Dummy4" parent="." instance=ExtResource("4_6pw8h")]
-position = Vector2(165, 45)
-
-[node name="DetectionPlayer" parent="Dummy4" instance=ExtResource("5_tb7o3")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Dummy4/DetectionPlayer"]
-shape = SubResource("CircleShape2D_sd6vj")
-
-[node name="load_next_level" parent="." instance=ExtResource("6_uqyci")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="load_next_level"]
-position = Vector2(262, -48)
-shape = SubResource("RectangleShape2D_6cjqf")
-debug_color = Color(0.959968, 2.02149e-06, 0.51867, 0.42)
-
-[connection signal="body_entered" from="Dummy/DetectionPlayer" to="Dummy" method="_on_detection_player_body_entered"]
-[connection signal="body_exited" from="Dummy/DetectionPlayer" to="Dummy" method="_on_detection_player_body_exited"]
-[connection signal="body_entered" from="Dummy2/DetectionPlayer" to="Dummy2" method="_on_detection_player_body_entered"]
-[connection signal="body_exited" from="Dummy2/DetectionPlayer" to="Dummy2" method="_on_detection_player_body_exited"]
-[connection signal="body_entered" from="Dummy3/DetectionPlayer" to="Dummy3" method="_on_detection_player_body_entered"]
-[connection signal="body_exited" from="Dummy3/DetectionPlayer" to="Dummy3" method="_on_detection_player_body_exited"]
-[connection signal="body_entered" from="Dummy4/DetectionPlayer" to="Dummy4" method="_on_detection_player_body_entered"]
-[connection signal="body_exited" from="Dummy4/DetectionPlayer" to="Dummy4" method="_on_detection_player_body_exited"]
-[connection signal="body_entered" from="load_next_level" to="." method="_on_load_next_level_body_entered"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dummy/DetectionPlayer2"]
+shape = SubResource("CircleShape2D_cqjfd")

@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://lfewx1ooim65"]
+[gd_scene load_steps=10 format=3 uid="uid://lfewx1ooim65"]
 
 [ext_resource type="Texture2D" uid="uid://cuq68724p2y0j" path="res://assets/tilemap/Floor_tilemap.png" id="1_8xvpx"]
 [ext_resource type="PackedScene" uid="uid://blih7kpppc73i" path="res://scenes/player.tscn" id="1_jxhej"]
 [ext_resource type="Script" path="res://scripts/level1.gd" id="1_yycnp"]
 [ext_resource type="PackedScene" uid="uid://d0ehwe45eln1j" path="res://scenes/shark.tscn" id="3_cles7"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="4_yf83j"]
 [ext_resource type="PackedScene" uid="uid://0nntsd0d6u4d" path="res://scenes/load_next_level.tscn" id="5_ds7yr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7gsdn"]
@@ -202,6 +203,7 @@ layer_2/tile_data = PackedInt32Array(-65521, 786432, 2, 15, 786432, 3, 65551, 78
 position = Vector2(-127, 39)
 collision_layer = 13
 collision_mask = 5
+script = ExtResource("4_yf83j")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(4, 4)

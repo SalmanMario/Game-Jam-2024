@@ -1,16 +1,84 @@
-[gd_scene load_steps=24 format=3 uid="uid://blih7kpppc73i"]
+[gd_scene load_steps=18 format=3 uid="uid://blih7kpppc73i"]
 
-[ext_resource type="Shader" uid="uid://btbabo4hq21te" path="res://assets/shader_hit/hit_flash.tres" id="1_dvse4"]
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_yrdgd"]
 [ext_resource type="Texture2D" uid="uid://bst2esak6d3p5" path="res://assets/main_character/Octopus Idle.png" id="2_tv4b8"]
 [ext_resource type="Texture2D" uid="uid://cxg5ai1lku2oi" path="res://assets/main_character/Octopus Moving.png" id="3_0kyqu"]
-[ext_resource type="AudioStream" uid="uid://lu8ya1fm1v50" path="res://assets/sounds/shoot.mp3" id="4_cln4t"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5ssmp"]
-resource_local_to_scene = true
-shader = ExtResource("1_dvse4")
-shader_parameter/enabled = false
-shader_parameter/tint = Color(1, 1, 1, 1)
+[sub_resource type="GDScript" id="GDScript_hovvq"]
+script/source = "extends CharacterBody2D
+class_name Player
+
+const SPEED = 150
+const ACCEL = 1500
+const FRICTION = 600
+var health = 3
+
+var bullet_scene = preload(\"res://scenes/bullet.tscn\")
+
+var input = Vector2.ZERO
+@onready var anim_player = $AnimatedSprite2D
+
+func _physics_process(delta):
+	player_movement(delta)
+	
+func get_input():
+	input.x = int(Input.is_action_pressed(\"move_right\")) - int(Input.is_action_pressed(\"move_left\"))
+	input.y = int(Input.is_action_pressed(\"move_down\")) - int(Input.is_action_pressed(\"move_up\"))
+	if Input.is_action_just_pressed(\"shoot\"):
+		shoot()
+	return input.normalized()
+	
+func player_movement(delta):
+	input = get_input()
+	
+	if input == Vector2.ZERO:
+		if velocity.length() > (FRICTION * delta):
+			velocity -= velocity.normalized() * (FRICTION * delta)
+		else:
+			velocity = Vector2.ZERO
+			anim_player.play(\"idle\")
+	else:
+		velocity += (input * ACCEL * delta)
+		velocity = velocity.limit_length(SPEED)
+		update_animation(input)
+		
+	move_and_slide()
+
+func update_animation(input):
+	if abs(input.x) > abs(input.y):
+		if input.x > 0:
+			anim_player.flip_h = false
+			Global.bullet_direction = Vector2.RIGHT
+		else:
+			anim_player.flip_h = true
+			Global.bullet_direction = Vector2.LEFT
+		anim_player.play(\"moving_animation\")
+	else:
+		if input.y > 0:
+			Global.bullet_direction = Vector2.DOWN
+		else:
+			Global.bullet_direction = Vector2.UP
+			
+func shoot():
+	var bullet = bullet_scene.instantiate()
+	bullet.position = position
+	get_parent().add_child(bullet)
+	
+func player_take_damage():
+	health -= 1
+	
+	if health == 0:
+		queue_free()
+		respawn()
+
+#func _on_timer_timeout():
+	#shoot()
+	
+func respawn():
+	get_tree().reload_current_scene()
+
+func player():
+	pass
+"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tfihc"]
 atlas = ExtResource("2_tv4b8")
@@ -102,43 +170,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Animation" id="Animation_6lhxc"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_v8pn4"]
-resource_name = "hit_effect"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_060cv"]
-_data = {
-"RESET": SubResource("Animation_6lhxc"),
-"hit_effect": SubResource("Animation_v8pn4")
-}
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_1extt"]
 radius = 8.0
 
@@ -147,17 +178,11 @@ radius = 9.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 9
-script = ExtResource("1_yrdgd")
+script = SubResource("GDScript_hovvq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource("ShaderMaterial_5ssmp")
 sprite_frames = SubResource("SpriteFrames_g8hvs")
-animation = &"idle"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_060cv")
-}
+animation = &"moving_animation"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -1)
@@ -167,15 +192,11 @@ shape = SubResource("CircleShape2D_1extt")
 autostart = true
 
 [node name="HitboxBullet" type="Area2D" parent="."]
-collision_layer = 3
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxBullet"]
 position = Vector2(1, -1)
 shape = SubResource("CircleShape2D_blm1f")
 debug_color = Color(0.95812, 0, 0.528873, 0.42)
-
-[node name="ShootSoundEffect" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_cln4t")
-bus = &"Sound Effects"
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

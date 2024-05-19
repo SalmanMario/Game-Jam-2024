@@ -2,9 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://cuq68724p2y0j" path="res://assets/tilemap/Floor_tilemap.png" id="1_8xvpx"]
 [ext_resource type="PackedScene" uid="uid://blih7kpppc73i" path="res://scenes/player.tscn" id="1_jxhej"]
-[ext_resource type="Script" path="res://scripts/level1.gd" id="1_yycnp"]
+[ext_resource type="Script" path="res://scripts/level1.gd" id="1_p6knn"]
 [ext_resource type="PackedScene" uid="uid://d0ehwe45eln1j" path="res://scenes/shark.tscn" id="3_cles7"]
-[ext_resource type="PackedScene" uid="uid://0nntsd0d6u4d" path="res://scenes/load_next_level.tscn" id="5_ds7yr"]
+[ext_resource type="PackedScene" uid="uid://cnccs28o13t6n" path="res://scenes/scene_trigger.tscn" id="4_1ja8d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7gsdn"]
 texture = ExtResource("1_8xvpx")
@@ -179,11 +179,12 @@ texture = ExtResource("1_8xvpx")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_7gsdn")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_78d8j"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_bppou"]
+radius = 11.0
 
 [node name="Level1" type="Node2D"]
 position = Vector2(0, 1)
-script = ExtResource("1_yycnp")
+script = ExtResource("1_p6knn")
 
 [node name="TileMap" type="TileMap" parent="."]
 rotation = 0.000228755
@@ -199,22 +200,20 @@ layer_2/z_index = 2
 layer_2/tile_data = PackedInt32Array(-65521, 786432, 2, 15, 786432, 3, 65551, 786432, 0, 131087, 786432, 1, 196623, 786432, 2, 262159, 786432, 3, 327695, 786432, 0, 393231, 786432, 1, 458767, 786432, 2, -262129, 786432, 2, -196593, 786432, 0, -131057, 786432, 1, -458737, 786432, 3, -393201, 786432, 0, -327665, 786432, 1, -524303, 589824, 0, -524302, 655360, 0, -524301, 720896, 0, -524300, 589824, 0, -524299, 655360, 0, -524298, 720896, 0, -524297, 589824, 0, -524296, 655360, 0, -524295, 720896, 0, -524294, 589824, 0, -524293, 655360, 0, -524292, 720896, 0, -524291, 589824, 0, -524290, 655360, 0, -524289, 589824, 2, -589824, 655360, 2, -589823, 720896, 2, -589822, 720896, 0, -589821, 589824, 0, -589820, 655360, 0, -589819, 720896, 0, -589818, 589824, 0, -589817, 655360, 0, -589816, 720896, 0, -589815, 589824, 0, -589814, 655360, 0, -589813, 720896, 0, -589812, 589824, 0, -589811, 655360, 0, -589810, 720896, 0, -524304, 524288, 0, -458768, 524288, 1, -393232, 524288, 2, -327696, 524288, 3, -262160, 524288, 2, -196624, 524288, 3, -131088, 524288, 0, -65552, 524288, 1, -16, 524288, 2, 65520, 524288, 3, 131056, 524288, 0, 196592, 524288, 1, 262128, 524288, 2, 327664, 524288, 3, 393200, 524288, 0, 458736, 524288, 1, 524272, 524288, 2, 589808, 524288, 4, 589809, 655360, 4, 589810, 720896, 4, 589811, 589824, 4, 589812, 655360, 4, 589813, 720896, 4, 589814, 589824, 4, 589815, 655360, 4, 589816, 720896, 4, 589817, 589824, 4, 589818, 655360, 4, 589819, 720896, 4, 589820, 589824, 4, 589821, 655360, 4, 589822, 720896, 4, 589823, 589824, 4, 524288, 655360, 4, 524289, 720896, 4, 524290, 589824, 4, 524291, 655360, 4, 524292, 720896, 4, 524293, 589824, 4, 524294, 655360, 4, 524295, 720896, 4, 524296, 589824, 4, 524297, 655360, 4, 524298, 720896, 4, 524299, 589824, 4, 524300, 655360, 4, 524301, 720896, 4, 524302, 720896, 4, -589809, 786432, 1, -524273, 786432, 2, 524303, 786432, 4)
 
 [node name="Player" parent="." instance=ExtResource("1_jxhej")]
-position = Vector2(-127, 39)
-collision_layer = 13
-collision_mask = 5
+position = Vector2(7, -96)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(4, 4)
 
 [node name="Shark" parent="." instance=ExtResource("3_cles7")]
-position = Vector2(-44, -65)
-collision_layer = 1
-collision_mask = 1
+position = Vector2(-42, -101)
 
-[node name="load_next_level" parent="." instance=ExtResource("5_ds7yr")]
+[node name="SceneTrigger" parent="." instance=ExtResource("4_1ja8d")]
+connected_scene = "Level2"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="load_next_level"]
-position = Vector2(8, -133)
-shape = SubResource("RectangleShape2D_78d8j")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneTrigger"]
+z_index = 10
+position = Vector2(8, -135)
+shape = SubResource("CircleShape2D_bppou")
 
-[connection signal="body_entered" from="load_next_level" to="." method="_on_load_next_level_body_entered"]
+[node name="EntranceMarkers" type="Node2D" parent="."]
